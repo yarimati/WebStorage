@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStorage.Models;
+using WebStorage.Services;
 
 namespace WebStorage
 {
@@ -20,6 +21,10 @@ namespace WebStorage
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IGuidService, GuidService>();
+            services.AddTransient<ICounterFilesService, CounterFilesService>();
+            services.AddTransient<IDeleteFilesService, DeleteFilesService>();
+
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
