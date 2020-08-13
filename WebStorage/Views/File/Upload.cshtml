@@ -1,0 +1,16 @@
+﻿<p class="total-files">Files on the server @ViewData["CurrentCounter"]</p>
+
+<h2 align="center">My Storage</h2>
+
+<form enctype="multipart/form-data" method="post">
+    <input name="files" type="file" multiple>
+        <div>
+            <p align="center">Drag your files here or click in this area.</p>
+            <button type="submit">Upload files</button>
+        </div>
+</form>
+<p align="center">Uploaded files</p>
+<div>
+    <p align="center">Uploaded files here</p>
+    <ul class="style-10" id="output"></ul>
+</div>

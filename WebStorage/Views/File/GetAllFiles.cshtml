@@ -1,0 +1,31 @@
+﻿@using WebStorage.Models
+@model Dictionary<string, string>
+@{ ViewData["Title"] = "GetAllFiles"; }
+
+<h1 align="center" class="mt-md-5">Download files</h1>
+
+<input id="currentUrl" size="65" value="" align="middle">
+<script>window.onload = function () {
+        this.document.getElementById('currentUrl').value = window.location.href;
+    }</script>
+
+<button id="copyLinkButton" onclick="copyToClipboard()">Copy link</button>
+
+<div class=" container d-flex justify-content-center mt-md-5">
+    <div class="row">
+        <div class="download-dashed-filed">
+            <div class="col-md-12">
+                <div>
+                    <p align="center" class="mt-2 click-p">Click to download!</p>
+                    <ul class="style-10">
+                        @foreach (var file in Model)
+                        {
+            <li> <a asp-controller="File" asp-action="Download" asp-route-fileName="@file.Key" asp-route-uniqFolderName="@file.Value">@file.Key</a> </li>}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

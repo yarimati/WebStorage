@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,11 @@ namespace WebStorage
             services.AddTransient<IGuidService, GuidService>();
             services.AddTransient<ICounterFilesService, CounterFilesService>();
             services.AddTransient<IDeleteFilesService, DeleteFilesService>();
+
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.Limits.MaxRequestBodySize = 500000000; // 500mb 
+            });
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);
