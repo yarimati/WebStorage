@@ -1,71 +1,279 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿body {
+    background-color: #dce7ea;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='352' height='352' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23c5c9cc' stroke-width='2.9'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23a3a3a3'%3E%3Ccircle cx='769' cy='229' r='7'/%3E%3Ccircle cx='539' cy='269' r='7'/%3E%3Ccircle cx='603' cy='493' r='7'/%3E%3Ccircle cx='731' cy='737' r='7'/%3E%3Ccircle cx='520' cy='660' r='7'/%3E%3Ccircle cx='309' cy='538' r='7'/%3E%3Ccircle cx='295' cy='764' r='7'/%3E%3Ccircle cx='40' cy='599' r='7'/%3E%3Ccircle cx='102' cy='382' r='7'/%3E%3Ccircle cx='127' cy='80' r='7'/%3E%3Ccircle cx='370' cy='105' r='7'/%3E%3Ccircle cx='578' cy='42' r='7'/%3E%3Ccircle cx='237' cy='261' r='7'/%3E%3Ccircle cx='390' cy='382' r='7'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+h1, h2, p, span, ul, li, button {
+    font-family: 'Trebuchet MS';
+    font-weight: bold;
+    color: #5d6869;
 }
+header{
+    display:none;
+}
+@media (min-width: 601px) {
+    .cloudimg {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 35px;
+    }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+    .dash-size {
+        height: 310px;
+        width: 720px;
+        background-color: #c5c9cc;
+        border: 5px dashed #363f45;
+        display: inline-block;
+    }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+    form input {
+        position: absolute;
+        height: 310px;
+        width: 720px;
+        outline: none;
+        opacity: 0;
+        z-index: 1;
+    }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+    .file-message {
+        margin-top: 60px;
+    }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
+    .upload-message {
+        position: absolute;
+        margin-top: 135px;
+        margin-left: 250px;
+    }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
+    .total-files {
+        position: absolute;
+        margin-top: 11%;
+        margin-left: 10%;
+        font-size: 25px;
+    }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    .text-between-fields {
+        font-size: 30px;
+        margin-top: 32px;
+        margin-bottom: 32px;
+    }
+
+    .file-drop-area {
+        position: absolute;
+    }
+
+        .file-drop-area ul {
+            width: 690px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+    #uploadButton {
+        position: absolute;
+        margin-top: 100%;
+        margin-left: 78%;
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+    }
+
+
+    form button:hover {
+        background: #149174;
+        color: #0C5645;
+    }
+
+    form button:active {
+        border: 0;
+    }
+
+    .style-10::-webkit-scrollbar-track {
+        background-color: #d3d6db;
+    }
+
+    .style-10::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .style-10::-webkit-scrollbar-thumb {
+        background-color: #AAA;
+        border-radius: 10px;
+        background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, .2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
+    }
+
+
+    .download-dashed-filed {
+        font-size: 18px;
+        height: 620px;
+        width: 1000px;
+        background-color: #c5c9cc;
+        border: 5px dashed #363f45;
+        display: inline-block;
+    }
+
+        .download-dashed-filed ul {
+            width: 970px;
+            max-height: 550px;
+            overflow-y: auto;
+        }
+
+    #currentUrl {
+        text-align: center;
+        background-color: #c5c9cc;
+        margin-top: 15px;
+        margin-left: 36%;
+    }
+
+    #copyLinkButton {
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+    }
+
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 60px;
+    }
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+@media (max-width: 600px) {
+    .cloudimg {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 17px;
+    }
+
+    .dash-size {
+        height: 190px;
+        width: 360px;
+        background-color: #c5c9cc;
+        border: 3px dashed #363f45;
+        display: inline-block;
+    }
+
+    form input {
+        position: absolute;
+        height: 180px;
+        width: 360px;
+        outline: none;
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .file-message {
+        margin-top: 81px;
+    }
+
+    .upload-message {
+        position: absolute;
+        margin-top: 67px;
+        margin-left: 90px;
+    }
+
+    .total-files {
+        margin-top: 23%;
+        margin-left: 20%;
+        font-size: 19px;
+    }
+
+    .text-between-fields {
+        font-size: 21px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .file-drop-area {
+        position: absolute;
+    }
+
+        .file-drop-area ul {
+            width: 335px;
+            max-height: 138px;
+            overflow-y: auto;
+        }
+
+    #uploadButton {
+        position: absolute;
+        margin-top: 97%;
+        margin-left: 56%;
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+    }
+
+
+    form button:hover {
+        background: #149174;
+        color: #0C5645;
+    }
+
+    form button:active {
+        border: 0;
+    }
+
+    .style-10::-webkit-scrollbar-track {
+        background-color: #d3d6db;
+    }
+
+    .style-10::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .style-10::-webkit-scrollbar-thumb {
+        background-color: #AAA;
+        border-radius: 10px;
+        background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, .2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
+    }
+
+
+    .download-dashed-filed {
+        font-size: 18px;
+        height: 450px;
+        width: 360px;
+        background-color: #c5c9cc;
+        border: 5px dashed #363f45;
+        display: inline-block;
+    }
+
+        .download-dashed-filed ul {
+            width: 102%;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+    #currentUrl {
+        text-align: center;
+        background-color: #c5c9cc;
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    #copyLinkButton {
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+        margin-left: 29%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 30px;
+    }
 }

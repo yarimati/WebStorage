@@ -1,16 +1,35 @@
-﻿<p class="total-files">Files on the server @ViewData["CurrentCounter"]</p>
+﻿
+    <p class="forComputers total-files" style="display:none;">Files on the server @ViewData["CurrentCounter"]</p>
 
-<h2 align="center">My Storage</h2>
+        <h2 align="center">My Storage</h2>
 
-<form enctype="multipart/form-data" method="post">
-    <input name="files" type="file" multiple>
-        <div>
-            <p align="center">Drag your files here or click in this area.</p>
-            <button type="submit">Upload files</button>
+    <form enctype="multipart/form-data" method="post">
+        <div class="container d-flex justify-content-center mt-md-4">
+            <div class="row">
+                <div class="dash-size">
+                    <input id="file-selector" class="file-input" name="files" type="file" multiple>
+                    <div class="col-md-12">
+                        <p class="file-message forComputers" align="center"  style="display:none;">Drag your files here or click in this area.</p>
+                        <p class="file-message forMobile" align="center" style="display:none;">Click in this area to upload Files.</p>
+                        <button id="uploadButton" type="submit" value="Upload">Upload files</button>
+                    </div>
+                </div>
+            </div>
         </div>
-</form>
-<p align="center">Uploaded files</p>
-<div>
-    <p align="center">Uploaded files here</p>
-    <ul class="style-10" id="output"></ul>
-</div>
+    </form>
+    <p class="text-between-fields" align="center">Uploaded files</p>
+    <div class="container d-flex justify-content-center mt-100">
+        <div class="row">
+            <div class="dash-size">
+                <div class="col-md-12">
+                    <div class="file-drop-area">
+                        <p align="center" id="spanToHide" class="upload-message">Uploaded files here</p>
+                        <p id="totalSize"></p>
+                        <ul class="style-10" id="output"></ul>
+                        <script>fileInfo();</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="display:none;" class="forMobile total-files">Files on the server @ViewData["CurrentCounter"]</p>
