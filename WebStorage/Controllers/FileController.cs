@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -47,28 +48,36 @@ namespace WebStorage.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IEnumerable<IFormFile> files)
         {
-            var uniqeShortFolderName = _guidService.GenShortUniqueName();
+            var uniqeShortFolderName = _guidService.GenShortUniqueName() + @"\";
             string destinationPath = _appEnvironment.ContentRootPath + @"\Files\";
-            uniqeShortFolderName = uniqeShortFolderName + @"\";
-            foreach (var file in files)
+
+            try
             {
-                if (file != null)
+                foreach (var file in files)
                 {
-                    Directory.CreateDirectory(destinationPath + uniqeShortFolderName);
+                    if (file != null)
+                    {
+                        Directory.CreateDirectory(destinationPath + uniqeShortFolderName);
 
-                    var typeFile = Path.GetExtension(file.FileName);
-                    var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string filePath = destinationPath + uniqeShortFolderName + fileName + typeFile;
+                        var typeFile = Path.GetExtension(file.FileName);
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        string filePath = destinationPath + uniqeShortFolderName + fileName + typeFile;
 
-                    using var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-                    await file.CopyToAsync(stream);
+                        using var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                        await file.CopyToAsync(stream);
+                    }
                 }
-            }
-            _counterFiles.IncreaseTotalCounter();
-            ViewData["TotalCounter"] = _counterFiles.GetTotalCounterFiles();
-            _deleteFiles.CheckToDeleteFolder();
+                _counterFiles.IncreaseTotalCounter();
+                ViewData["TotalCounter"] = _counterFiles.GetTotalCounterFiles();
+                _deleteFiles.CheckToDeleteFolder();
 
-            return RedirectToAction("GetAllFiles", new { downloadUrl = uniqeShortFolderName });
+                return RedirectToAction("GetAllFiles", new { downloadUrl = uniqeShortFolderName });
+            }
+            catch (Exception ex)
+            {
+
+                return Json("Upload Failed: " + ex.Message);
+            }
         }
         /// <summary>
         /// 
