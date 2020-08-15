@@ -3,12 +3,13 @@
 
 <h2 align="center" class="mainText">Web Storage</h2>
 
-<form enctype="multipart/form-data" method="post">
+@*<form asp-controller="File" asp-action="Upload" enctype="multipart/form-data" method="post">
     <div class="container d-flex justify-content-center mt-md-4">
         <div class="row">
             <div class="dash-size">
                 <input id="file-selector" class="file-input" name="files" type="file" multiple>
                 <div class="col-md-12">
+                    <img class="cloudimg" src="~/images/cloudLogo.png" alt="Cloud image" />
                     <p class="file-message forComputers" align="center" style="display:none;">Drag your files here or click in this area.</p>
                     <p class="file-message forMobile" align="center" style="display:none;">Click in this area to upload Files.</p>
                     <button id="uploadButton" type="submit" value="Upload">Upload files</button>
@@ -32,4 +33,9 @@
         </div>
     </div>
 </div>
-<p style="display:none;" class="forMobile total-files">Files on the server @ViewData["CurrentCounter"]</p>
+<p style="display:none;" class="forMobile total-files">Files on the server @ViewData["CurrentCounter"]</p>*@
+
+
+<form  asp-controller="File" asp-action="Upload" enctype="multipart/form-data" method="post">
+
+</form>

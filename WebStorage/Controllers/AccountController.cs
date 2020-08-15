@@ -26,7 +26,7 @@ namespace WebStorage.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { Email = model.Email, UserName = model.Email };
+                var user = new AppUser { Email = model.Email, UserName = model.UserName };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -56,16 +56,16 @@ namespace WebStorage.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.FindByEmailAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user!=null)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                    var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
                         return Redirect(returnUrl ?? "/");
                     }
                 }
-                ModelState.AddModelError(nameof(LoginViewModel.Email), "Invalid user or password");
+                ModelState.AddModelError(nameof(LoginViewModel.UserName), "Invalid user or password");
                
             }
             return View(model);

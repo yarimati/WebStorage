@@ -1,20 +1,107 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
     background-color: #dce7ea;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='352' height='352' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23c5c9cc' stroke-width='2.9'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23a3a3a3'%3E%3Ccircle cx='769' cy='229' r='7'/%3E%3Ccircle cx='539' cy='269' r='7'/%3E%3Ccircle cx='603' cy='493' r='7'/%3E%3Ccircle cx='731' cy='737' r='7'/%3E%3Ccircle cx='520' cy='660' r='7'/%3E%3Ccircle cx='309' cy='538' r='7'/%3E%3Ccircle cx='295' cy='764' r='7'/%3E%3Ccircle cx='40' cy='599' r='7'/%3E%3Ccircle cx='102' cy='382' r='7'/%3E%3Ccircle cx='127' cy='80' r='7'/%3E%3Ccircle cx='370' cy='105' r='7'/%3E%3Ccircle cx='578' cy='42' r='7'/%3E%3Ccircle cx='237' cy='261' r='7'/%3E%3Ccircle cx='390' cy='382' r='7'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-h1, h2, p, span, ul, li, button {
+.login-container {
+    height: 93vh;
+    width: 100%;
+}
+
+.login-form {
+    margin: auto;
+    width: 370px;
+    padding: 15px;
+    max-width: 100%;
+}
+
+    .login-form .form-control {
+        font-size: 15px;
+        min-height: 48px;
+        font-weight: 500;
+    }
+
+    .login-form a {
+        text-decoration: none;
+        color: #666;
+    }
+
+        .login-form a:hover {
+            color: #723dbe;
+        }
+
+.forgot-link {
+    font-size: 13px;
+}
+
+.form-control:focus {
+    border-color: #723dbe;
+    box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
+}
+
+.btn-custom {
+    background: #723dbe;
+    border-color: #723dbe;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    min-height: 48px;
+}
+
+    .btn-custom:focus,
+    .btn-custom:hover,
+    .btn-custom:active,
+    .btn-custom:active:focus {
+        background: #54229d;
+        border-color: #54229d;
+        color: #fff;
+    }
+
+    .btn-custom:focus {
+        box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
+    }
+
+
+
+/*h1, h2, p, span, ul, li, button,a {
     font-family: 'Trebuchet MS';
     font-weight: bold;
     color: #5d6869;
-}
+}*/
 /*for computers*/
-@media (min-width: 601px) { 
+/*@media (min-width: 601px) { 
     .cloudimg {
         display: block;
         margin-left: auto;
         margin-right: auto;
         margin-top: 35px;
+    }
+
+    .mainPageLink {
+        text-decoration: none;
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+        padding-left: 32px;
+        padding-right: 33px;
+        padding-top: 3px;
+        padding-bottom: 2px;
+        display: block;
+    }
+
+        .mainPageLink:hover {
+            color: #5d6869;
+            text-decoration: none;
+        }
+
+    .container {
+        max-width: 1140px;
+        margin-top: 1%;
     }
 
     .dash-size {
@@ -25,7 +112,7 @@ h1, h2, p, span, ul, li, button {
         display: inline-block;
     }
 
-    form input {
+    .file-input {
         position: absolute;
         height: 310px;
         width: 720px;
@@ -40,14 +127,14 @@ h1, h2, p, span, ul, li, button {
 
     .upload-message {
         position: absolute;
-        margin-top: 135px;
-        margin-left: 250px;
+        margin-top: 20%;
+        margin-left: 35%;
     }
 
     .total-files {
         position: absolute;
-        margin-top: 11%;
-        margin-left: 10%;
+        margin-top: 10%;
+        margin-left: -5%;
         font-size: 25px;
     }
 
@@ -69,7 +156,7 @@ h1, h2, p, span, ul, li, button {
 
     #uploadButton {
         position: absolute;
-        margin-top: 100%;
+        margin-top: 78%;
         margin-left: 78%;
         width: 144px;
         background-color: #c5c9cc;
@@ -119,10 +206,7 @@ h1, h2, p, span, ul, li, button {
         }
 
     #currentUrl {
-        text-align: center;
         background-color: #c5c9cc;
-        margin-top: 15px;
-        margin-left: 36%;
     }
 
     #copyLinkButton {
@@ -140,9 +224,9 @@ h1, h2, p, span, ul, li, button {
         white-space: nowrap;
         line-height: 60px;
     }
-}
+}*/
 /*for iphone X */
-@media (max-width: 600px) and (min-height: 750px) {
+/*@media (max-width: 600px) and (min-height: 750px) {
     .cloudimg {
         display: block;
         margin-left: auto;
@@ -150,6 +234,23 @@ h1, h2, p, span, ul, li, button {
         margin-top: 17px;
     }
 
+    .mainPageLink {
+        text-decoration: none;
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+        padding-left: 32px;
+        padding-right: 33px;
+        padding-top: 3px;
+        padding-bottom: 2px;
+        display: block;
+    }
+
+        .mainPageLink:hover {
+            color: #5d6869;
+            text-decoration: none;
+        }
     .container {
         margin-top: 8%;
     }
@@ -166,7 +267,7 @@ h1, h2, p, span, ul, li, button {
         margin-top: 8px;
     }
 
-    form input {
+    .file-input {
         position: absolute;
         height: 180px;
         width: 360px;
@@ -176,13 +277,13 @@ h1, h2, p, span, ul, li, button {
     }
 
     .file-message {
-        margin-top: 81px;
+        margin-top: 15%;
     }
 
     .upload-message {
         position: absolute;
-        margin-top: 67px;
-        margin-left: 90px;
+        margin-top: 30%;
+        margin-left: 30%;
     }
 
     .total-files {
@@ -209,7 +310,7 @@ h1, h2, p, span, ul, li, button {
 
     #uploadButton {
         position: absolute;
-        margin-top: 124%;
+        margin-top: 105%;
         margin-left: 56%;
         width: 144px;
         background-color: #c5c9cc;
@@ -282,15 +383,33 @@ h1, h2, p, span, ul, li, button {
         white-space: nowrap;
         line-height: 30px;
     }
-}
+}*/
 /*for iphone 6/7/8*/
-@media (max-width: 600px) and (max-height: 700px) {
+/*@media (max-width: 600px) and (max-height: 700px) {
     .cloudimg {
         display: block;
         margin-left: auto;
         margin-right: auto;
         margin-top: 17px;
     }
+
+    .mainPageLink {
+        text-decoration: none;
+        width: 144px;
+        background-color: #c5c9cc;
+        border: 2px dashed #363f45;
+        z-index: 2;
+        padding-left: 32px;
+        padding-right: 33px;
+        padding-top: 3px;
+        padding-bottom: 2px;
+        display: block;
+    }
+
+        .mainPageLink:hover {
+            color: #5d6869;
+            text-decoration: none;
+        }
 
     .dash-size {
         height: 190px;
@@ -304,7 +423,7 @@ h1, h2, p, span, ul, li, button {
         margin-top: 8px;
     }
 
-    form input {
+    .file-input {
         position: absolute;
         height: 180px;
         width: 360px;
@@ -314,13 +433,13 @@ h1, h2, p, span, ul, li, button {
     }
 
     .file-message {
-        margin-top: 81px;
+        margin-top: 8%;
     }
 
     .upload-message {
         position: absolute;
-        margin-top: 67px;
-        margin-left: 90px;
+        margin-top: 25%;
+        margin-left: 26%;
     }
 
     .total-files {
@@ -347,7 +466,7 @@ h1, h2, p, span, ul, li, button {
 
     #uploadButton {
         position: absolute;
-        margin-top: 97%;
+        margin-top: 85%;
         margin-left: 56%;
         width: 144px;
         background-color: #c5c9cc;
@@ -420,4 +539,4 @@ h1, h2, p, span, ul, li, button {
         white-space: nowrap;
         line-height: 30px;
     }
-}
+}*/

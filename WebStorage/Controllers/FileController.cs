@@ -46,6 +46,7 @@ namespace WebStorage.Controllers
         /// <param name="files"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Upload(IEnumerable<IFormFile> files)
         {
             var uniqeShortFolderName = _guidService.GenShortUniqueName() + @"\";

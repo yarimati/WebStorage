@@ -3,7 +3,6 @@
     for (var i = 0; i < listOfMobileElements.length; i++) {
         listOfMobileElements[i].style.display = 'block';
     }
-
 }
 else {
     const listOfComputerElements = document.getElementsByClassName('forComputers');
@@ -11,8 +10,6 @@ else {
         listOfComputerElements[i].style.display = 'block';
     }
 }
-
-
 
 $(document).ready(function () {
     $('form input').change(function () {
@@ -36,8 +33,7 @@ function fileInfo() {
                 output.appendChild(li);
             }
             allowUpload(totalWeight);
-            hideSpan();
-            showButton();
+            document.getElementById("spanToHide").style.display = 'none';
             document.getElementById("totalSize").innerHTML = `Total size is ${fileSize(totalWeight)}`;
         });
     }
@@ -51,14 +47,6 @@ function fileSize(bytes) {
     if (i == 0) return bytes + ' ' + sizes[i];
     return (bytes / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 };
-
-function hideSpan() {
-    document.getElementById("spanToHide").style.display = 'none';
-}
-function showButton() {
-    document.getElementById("uploadButton").removeAttribute("style");
-}
-
 
 
 function allowUpload(totalSize) {

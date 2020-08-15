@@ -1,24 +1,23 @@
 ﻿@model WebStorage.Models.ViewModels.RegisterViewModel
 
-<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    @Html.ValidationSummary()
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="ConfirmPassword"></label><br />
-        <input asp-for="ConfirmPassword" />
-        <span asp-validation-for="ConfirmPassword"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация" />
-    </div>
-</form>
+<div class="d-flex justify-content-center align-items-center login-container">
+    <form method="post" asp-controller="Account" asp-action="Register" class="login-form text-center">
+        <h1 class="mb-5 font-weight-light text-uppercase">Register</h1>
+        <div class="form-group">
+            <input asp-for="UserName" class="form-control rounded-pill form-control-lg" placeholder="User name" type="text">
+        </div>
+        <div class="form-group">
+            <input asp-for="Email" class="form-control rounded-pill form-control-lg" placeholder="Email" type="email">
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" class="form-control rounded-pill form-control-lg" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input asp-for="ConfirmPassword" class="form-control rounded-pill form-control-lg" placeholder="Confirm password" type="password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Register</button>
+        </div>
+        <p class="mt-3 font-weight-normal">Do you have an account? <a asp-controller="Account" asp-action="Login"><strong>Log in</strong></a></p>
+    </form>
+</div>
