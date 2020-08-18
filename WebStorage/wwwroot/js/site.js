@@ -1,42 +1,29 @@
-﻿if ($(window).width() < 600) {
-    const listOfMobileElements = document.getElementsByClassName('forMobile');
-    for (var i = 0; i < listOfMobileElements.length; i++) {
-        listOfMobileElements[i].style.display = 'block';
-    }
-}
-else {
-    const listOfComputerElements = document.getElementsByClassName('forComputers');
-    for (var i = 0; i < listOfComputerElements.length; i++) {
-        listOfComputerElements[i].style.display = 'block';
-    }
-}
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('form input').change(function () {
         $('form p').text(this.files.length + " file(s) selected");
     });
 });
 
+var inputFiles = document.getElementById('file-selector');
+if (inputFiles !== null) {
+    inputFiles.addEventListener('change', fileInfo, false);
+}
+
 function fileInfo() {
     const output = document.getElementById('output');
-    if (window.FileList && window.File) {
-        document.getElementById('file-selector').addEventListener('change', event => {
-            output.innerHTML = '';
-            totalWeight = 0;
-            for (const file of event.target.files) {
-
-                const li = document.createElement('li');
-                const name = file.name ? file.name : 'NOT SUPPORTED';
-                const size = file.size ? file.size : 'NOT SUPPORTED';
-                totalWeight += file.size;
-                li.textContent = `${name}, size: ${fileSize(size)}`;
-                output.appendChild(li);
-            }
-            allowUpload(totalWeight);
-            document.getElementById("spanToHide").style.display = 'none';
-            document.getElementById("totalSize").innerHTML = `Total size is ${fileSize(totalWeight)}`;
-        });
+    output.innerHTML = '';
+    totalWeight = 0;
+    for (const file of event.target.files) {
+        const li = document.createElement('li');
+        const name = file.name ? file.name : 'NOT SUPPORTED';
+        const size = file.size ? file.size : 'NOT SUPPORTED';
+        totalWeight += file.size;
+        li.textContent = `${name}, size: ${fileSize(size)}`;
+        output.appendChild(li);
     }
+    allowUpload(totalWeight);
+    document.getElementById("spanToHide").style.display = 'none';
+    document.getElementById("totalSize").innerHTML = `Total size is ${fileSize(totalWeight)}`;
 }
 
 
@@ -62,3 +49,4 @@ function copyToClipboard() {
     textBox.select();
     document.execCommand("copy");
 }
+
