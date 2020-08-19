@@ -1,29 +1,32 @@
 ﻿
 
-<div class="two-fileds">
-    <h2 class="m-md-3 font-weight-light text-uppercase text-center">Drop files</h2>
-    <div class="d-flex justify-content-center m-lg-3">
-        <div class="dash">
-            <form id="form-outside" class="form-upload" asp-controller="File" asp-action="Upload" enctype="multipart/form-data" method="post">
-                <input id="file-selector" class="file-input" name="files" type="file" multiple />
-                <div class="img-and-text">
-                    <img class="cloud-img" src="~/images/cloudLogo.png" alt="Alternate Text" />
-                    <p class="drag-text text-center mt-3">Drag your files here or click in this area.</p>
+    <div class="two-fileds">
+        <h2 class="m-md-3 font-weight-light text-uppercase text-center">Drop files</h2>
+        <div class="d-flex justify-content-center m-lg-3">
+            <div class="dash">
+                <form id="form-outside" class="form-upload" asp-controller="File" asp-action="Upload" enctype="multipart/form-data" method="post">
+                    <input id="file-selector" class="file-input" name="files" type="file" multiple />
+                    <div class="img-and-text">
+                        <img class="cloud-img" src="~/images/cloudLogo.png" alt="Alternate Text" />
+                        <p class="drag-text text-center mt-3">Drag your files here or click in this area.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="font-weight-light text-uppercase text-center">Uploaded files</h2>
+
+        <div class="d-flex justify-content-center m-lg-3">
+            <div class="dash">
+                <div class="file-drop-area">
+                    <p align="center" id="spanToHide" class="upload-message">Uploaded files here</p>
+                    <p id="totalSize"></p>
+                    <ul class="style-10" id="output"></ul>
                 </div>
-            </form>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" form="form-outside" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Upload</button>
         </div>
     </div>
-
-    <h2 class="font-weight-light text-uppercase text-center">Uploaded files</h2>
-
-    <div class="d-flex justify-content-center m-lg-3">
-        <div class="dash">
-            <p align="center" id="spanToHide" class="upload-message">Uploaded files here</p>
-            <p id="totalSize"></p>
-            <ul class="style-10" id="output"></ul>
-        </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <button type="submit" form="form-outside" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Upload</button>
-    </div>
-</div>

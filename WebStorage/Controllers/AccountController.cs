@@ -16,11 +16,13 @@ namespace WebStorage.Controllers
             _userManager = usrMgr;
             _signInManager = sgnInMgr;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -44,12 +46,14 @@ namespace WebStorage.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model,string returnUrl)

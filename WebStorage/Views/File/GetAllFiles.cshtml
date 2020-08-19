@@ -2,44 +2,38 @@
 @model Dictionary<string, string>
 @{ ViewData["Title"] = "GetAllFiles"; }
 
-<h1 align="center" class="mt-md-5">Download files</h1>
+<h1 class="text-center mt-4">Download files</h1>
 
-    <script>
-    window.onload = function () {
-            this.document.getElementById('currentUrl').value = window.location.href;
-        }</script>
-
-
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col col-lg-2">
-            <a asp-controller="File" asp-action="Upload" class="mainPageLink">Main page</a>
-        </div>
-        <div class="col-md-auto">
-            <input id="currentUrl" size="65" value="">
-        </div>
-        <div class="col col-lg-2">
-            <button id="copyLinkButton" onclick="copyToClipboard()">Copy link</button>
-        </div>
-    </div>
+<div class="d-flex justify-content-center mt-4">
+        <input id="currentUrl" size="65" class="form-control rounded-pill form-control-lg output-link" type="text" readonly>
+</div>
+<div class="d-flex justify-content-center mt-4">
+        <button id="copyLinkButton" class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" >Copy link</button>
 </div>
 
-    <div class=" container d-flex justify-content-center mt-md-5">
-        <div class="row">
-            <div class="download-dashed-filed">
-                <div class="col-md-12">
-                    <div>
-                        <p align="center" class="mt-2 click-p">Click to download!</p>
-                        <ul class="style-10">
-                            @foreach (var file in Model)
-                            {
-                <li> <a asp-controller="File" asp-action="Download" asp-route-fileName="@file.Key" asp-route-uniqFolderName="@file.Value">@file.Key</a> </li>
+
+    <div class="d-flex justify-content-center mt-5">
+        <div class="dash output-files">
+            <p align="center" class="mt-2">Click to download!</p>
+            <ul class="style-10">
+                @foreach (var file in Model)
+                {
+    <li>
+        <a asp-controller="File" asp-action="Download" asp-route-fileName="@file.Key" asp-route-uniqFolderName="@file.Value">@file.Key</a>
+    </li>
 }
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            </ul>
         </div>
     </div>
 
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+                onclick="window.location='@Url.Action("Index", "Home")'">Main page</button>
+    </div>
 
+
+    <script>
+        window.onload = function () {
+            this.document.getElementById('currentUrl').value = window.location.href;
+        }
+    </script>

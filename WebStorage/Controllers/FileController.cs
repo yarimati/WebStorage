@@ -69,8 +69,9 @@ namespace WebStorage.Controllers
                     }
                 }
                 _counterFiles.IncreaseTotalCounter();
-                ViewData["TotalCounter"] = _counterFiles.GetTotalCounterFiles();
                 _deleteFiles.CheckToDeleteFolder();
+
+                ViewData["TotalCounter"] = _counterFiles.GetTotalCounterFiles();
 
                 return RedirectToAction("GetAllFiles", new { downloadUrl = uniqeShortFolderName });
             }
