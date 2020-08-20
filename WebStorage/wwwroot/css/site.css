@@ -12,6 +12,10 @@ body {
     width: 100%;
 }
 
+.reset-password-container {
+    height: 90vh;
+    width: 100%;
+}
 .login-form {
     margin: auto;
     width: 370px;
@@ -111,6 +115,13 @@ body {
 .output-link{
     max-width:60%;
 }
+.recovery-form {
+    height: 93vh;
+}
+
+
+
+
 
 .style-10::-webkit-scrollbar-track {
     background-color: #d3d6db;

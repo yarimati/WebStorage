@@ -14,7 +14,7 @@
                 <input asp-for="RememberMe" type="checkbox" class="form-check-input">
                 <label asp-for="RememberMe" class="form-check-label">Remember Password</label>
             </div>
-            <a href="#">Forgot Password?</a>
+            <a asp-action="ForgotPassword">Forgot Password?</a>
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
