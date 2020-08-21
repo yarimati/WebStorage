@@ -64,14 +64,13 @@ namespace WebStorage.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Upload(IEnumerable<IFormFile> files)
         {
             string download = await _uploadService.Upload(files);
             _counterFiles.IncreaseTotalCounter(); //Total files om the server
-            _deleteFiles.CheckToDeleteFolder(); //Check if time out 
 
-            await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download.Split('/').Last()); //add links in db
+            //await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download.Split('/').Last()); //add links in db
 
             return RedirectToAction("GetAllFiles", new { downloadUrl = download });
         }

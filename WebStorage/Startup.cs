@@ -8,17 +8,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStorage.Models;
 using WebStorage.Services;
+using Hangfire;
+using Hangfire.SqlServer;
+using System;
 
 namespace WebStorage
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,7 +42,8 @@ namespace WebStorage
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<AppUser, IdentityRole>(options => {
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireDigit = false;
@@ -48,9 +53,24 @@ namespace WebStorage
             }).AddEntityFrameworkStores<AppIdentityDbContext>()
                     .AddDefaultTokenProviders();
 
+
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+            services.AddHangfireServer();
+
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobs)
         {
             if (env.IsDevelopment())
             {
@@ -61,6 +81,7 @@ namespace WebStorage
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -68,7 +89,16 @@ namespace WebStorage
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+            app.UseHangfireDashboard();
+            RecurringJob.AddOrUpdate<DeleteFilesService>(x => x.CheckToDeleteFolder(), Cron.Minutely);
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
+            });
+
             app.UseMvcWithDefaultRoute();
         }
     }

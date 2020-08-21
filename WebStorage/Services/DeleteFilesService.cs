@@ -21,7 +21,7 @@ namespace WebStorage.Services
             foreach (var folder in folders)
             {
                 FileInfo fi = new FileInfo(folder);
-                if (fi.CreationTime < DateTime.Now.AddMinutes(-2))
+                if (fi.CreationTime < DateTime.Now.AddMinutes(-5))
                 {
                     Directory.Delete(folder, true);
                 }
