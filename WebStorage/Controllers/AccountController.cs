@@ -9,35 +9,44 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebStorage.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+
         /// <summary>
-        /// Ctor
+        /// Constructor
         /// </summary>
         /// <param name="usrMgr"></param>
         /// <param name="sgnInMgr"></param>
+        
         public AccountController(UserManager<AppUser> usrMgr, SignInManager<AppUser> sgnInMgr)
         {
             _userManager = usrMgr;
             _signInManager = sgnInMgr;
         }
+
         /// <summary>
-        /// 
+        /// Register view
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
+
         /// <summary>
-        /// 
+        /// Redister user
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -60,24 +69,30 @@ namespace WebStorage.Controllers
             }
             return View(model);
         }
+
         /// <summary>
-        /// 
+        /// Login view
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
         /// <summary>
-        /// 
+        /// Login
         /// </summary>
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
+        
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
@@ -93,34 +108,42 @@ namespace WebStorage.Controllers
                     }
                 }
                 ModelState.AddModelError(nameof(LoginViewModel.UserName), "Invalid user or password");
-
             }
             return View(model);
         }
+
         /// <summary>
-        /// 
+        /// Logout
         /// </summary>
         /// <returns></returns>
+
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         /// <summary>
-        /// 
+        /// Forgot password view
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
+
         /// <summary>
-        /// 
+        /// Send to email reset link 
         /// </summary>
+        /// <param name="model"></param>
         /// <returns></returns>
+        
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -145,14 +168,29 @@ namespace WebStorage.Controllers
 
             return View(model);
         }
+
+        /// <summary>
+        /// Reset password view
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
         {
             return code == null ? View("Error") : View();
         }
 
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)

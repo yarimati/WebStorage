@@ -215,6 +215,26 @@ namespace WebStorage.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("WebStorage.Models.UserLink", b =>
+                {
+                    b.Property<int>("UserLinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserLinkId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Links");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +284,13 @@ namespace WebStorage.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebStorage.Models.UserLink", b =>
+                {
+                    b.HasOne("WebStorage.Models.AppUser", "AppUser")
+                        .WithMany("Links")
+                        .HasForeignKey("AppUserId");
                 });
 #pragma warning restore 612, 618
         }

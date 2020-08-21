@@ -7,5 +7,8 @@ namespace WebStorage.Models
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
            : base(options) { }
+
+        public DbSet<UserLink> Links { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }

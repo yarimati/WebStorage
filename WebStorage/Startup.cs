@@ -25,6 +25,7 @@ namespace WebStorage
             services.AddTransient<IGuidService, GuidService>();
             services.AddTransient<ICounterFilesService, CounterFilesService>();
             services.AddTransient<IDeleteFilesService, DeleteFilesService>();
+            services.AddTransient<IUploadService, UploadService>();
 
             services.Configure<KestrelServerOptions>(options =>
             {

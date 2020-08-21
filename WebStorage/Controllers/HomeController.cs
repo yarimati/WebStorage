@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WebStorage.Models;
 
 namespace WebStorage.Controllers
 {
@@ -7,6 +9,6 @@ namespace WebStorage.Controllers
         public IActionResult Index()
         {
             return View();
-        }       
+        }
     }
 }
