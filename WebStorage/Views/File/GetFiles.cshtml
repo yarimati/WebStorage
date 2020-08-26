@@ -1,6 +1,6 @@
 ﻿@using WebStorage.Models
 @model Dictionary<string, string>
-@{ ViewData["Title"] = "GetAllFiles"; }
+@{ ViewData["Title"] = "GetFiles"; }
 
 <h1 class="text-center mt-4">Download files</h1>
 
@@ -19,7 +19,7 @@
                 @foreach (var file in Model)
                 {
     <li>
-        <a asp-controller="File" asp-action="Download" asp-route-fileName="@file.Key" asp-route-uniqFolderName="@file.Value">@file.Key</a>
+        <a asp-controller="File" asp-action="Download" asp-route-fileName="@file.Key" asp-route-uniqueFolderName="@file.Value">@file.Key</a>
     </li>
 }
             </ul>

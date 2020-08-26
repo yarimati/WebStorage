@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebStorage.Models;
 using WebStorage.Models.ViewModels;
-using MimeKit;
-using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 
 namespace WebStorage.Controllers

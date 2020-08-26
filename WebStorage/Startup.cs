@@ -11,6 +11,7 @@ using WebStorage.Services;
 using Hangfire;
 using Hangfire.SqlServer;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace WebStorage
 {
@@ -69,6 +70,8 @@ namespace WebStorage
             services.AddHangfireServer();
 
         }
+
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IBackgroundJobClient backgroundJobs)
         {

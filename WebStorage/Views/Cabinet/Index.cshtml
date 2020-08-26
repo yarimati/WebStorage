@@ -1,0 +1,23 @@
+﻿@model List<UsersEntryDTO>
+
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Links</th>
+            <th>Expires date</th>
+        </tr>
+        @{ int i = 0;
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Link</td>
+                    <td>@item.Date</td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+</div>

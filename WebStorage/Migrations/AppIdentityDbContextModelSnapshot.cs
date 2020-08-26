@@ -225,6 +225,9 @@ namespace WebStorage.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 

@@ -159,6 +159,7 @@ namespace WebStorage.Migrations
                     UserLinkId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Link = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

@@ -17,7 +17,6 @@ namespace WebStorage.Controllers
     public class FileController : Controller
     {
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly ICounterFilesService _counterFiles;
         private readonly IDeleteFilesService _deleteFiles;
         private readonly IUploadService _uploadService;
         private readonly UserManager<AppUser> _userManager;
@@ -32,12 +31,11 @@ namespace WebStorage.Controllers
         /// <param name="context"></param>
         /// <param name="userManager"></param>
         /// <param name="uploadService"></param>
-        public FileController(IWebHostEnvironment appEnvironment, ICounterFilesService counterFiles,
+        public FileController(IWebHostEnvironment appEnvironment,
                             IDeleteFilesService deleteFiles, AppIdentityDbContext context,
                             UserManager<AppUser> userManager, IUploadService uploadService)
         {
             _appEnvironment = appEnvironment;
-            _counterFiles = counterFiles;
             _deleteFiles = deleteFiles;
             _context = context;
             _userManager = userManager;
@@ -45,15 +43,23 @@ namespace WebStorage.Controllers
         }
 
         /// <summary>
+        /// If user comes(~/File) will be redirect to upload action
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Index()
+        {
+            return RedirectToAction("Upload");
+        }
+
+        /// <summary>
         /// Upload view
         /// </summary>
         /// <returns></returns>
-        
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Upload()
         {
-            ViewData["CurrentCounter"] = _counterFiles.GetCurrentCounterFiles();
             return View();
         }
 
@@ -64,15 +70,14 @@ namespace WebStorage.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Upload(IEnumerable<IFormFile> files)
         {
             string download = await _uploadService.Upload(files);
-            _counterFiles.IncreaseTotalCounter(); //Total files om the server
 
-            //await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download.Split('/').Last()); //add links in db
+            await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download.Split('/').Last()); //add links in db
 
-            return RedirectToAction("GetAllFiles", new { downloadUrl = download });
+            return RedirectToAction("GetFiles", new { downloadUrl = download });
         }
 
         /// <summary>
@@ -81,14 +86,15 @@ namespace WebStorage.Controllers
         /// <param name="user"></param>
         /// <param name="linkToDb"></param>
         /// <returns></returns>
-        
+
         [HttpPost]
         [Authorize]
         public async Task<bool> AddLinks(AppUser user, string linkToDb)
         {
             if (user != null && linkToDb != null)
             {
-                await _context.Links.AddAsync(new UserLink() { Link = linkToDb, AppUser = user });
+                var date = DateTime.Now;
+                await _context.Links.AddAsync(new UserLink() { Link = linkToDb, Date = date, AppUser = user });
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -100,11 +106,16 @@ namespace WebStorage.Controllers
         /// </summary>
         /// <param name="downloadUrl"></param>
         /// <returns></returns>
-        
+
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetAllFiles(string downloadUrl)
+        public IActionResult GetFiles(string downloadUrl)
         {
+            if (downloadUrl == null)
+            {
+                return RedirectToAction("Upload");
+            }
+
             var folderPath = _appEnvironment.ContentRootPath + @"\Files\" + downloadUrl;
 
             DirectoryInfo directory = new DirectoryInfo(folderPath);
@@ -129,19 +140,26 @@ namespace WebStorage.Controllers
         /// <param name="fileName"></param>
         /// <param name="uniqueFolderName"></param>
         /// <returns></returns>
-        
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Download(string fileName, string uniqueFolderName)
         {
-            if (fileName == null)
+            if (fileName == null || uniqueFolderName==null)
                 return RedirectToAction("Upload");
 
-            var fileToDownload = _appEnvironment.ContentRootPath + @"\Files\" + uniqueFolderName + @"\" + fileName;
-            FileStream fs = new FileStream(fileToDownload, FileMode.Open);
-            string file_type = MimeTypes.GetMimeType(fileToDownload);
-
-            return File(fs, file_type, fileName);
+            try
+            {
+                var fileToDownload = _appEnvironment.ContentRootPath + @"\Files\" + uniqueFolderName + @"\" + fileName;
+                FileStream fs = new FileStream(fileToDownload, FileMode.Open);
+                string file_type = MimeTypes.GetMimeType(fileToDownload);
+                return File(fs, file_type, fileName);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return new NotFoundResult();
         }
     }
 }

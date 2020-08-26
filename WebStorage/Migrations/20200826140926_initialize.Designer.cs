@@ -10,7 +10,7 @@ using WebStorage.Models;
 namespace WebStorage.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20200821000251_initialize")]
+    [Migration("20200826140926_initialize")]
     partial class initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace WebStorage.Migrations
 
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");

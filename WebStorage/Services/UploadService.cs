@@ -20,7 +20,7 @@ namespace WebStorage.Services
 
         public async Task<string> Upload(IEnumerable<IFormFile> files)
         {
-            var uniqueShortFolderName = _guidService.GenShortUniqueName() + @"\";
+            string uniqueShortFolderName = _guidService.GenShortUniqueName();
             string destinationPath = _appEnvironment.ContentRootPath + @"\Files\";
 
             try
@@ -32,7 +32,7 @@ namespace WebStorage.Services
                         Directory.CreateDirectory(destinationPath + uniqueShortFolderName);
 
                         var typeFile = Path.GetExtension(file.FileName);
-                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var fileName = @"\" + Path.GetFileNameWithoutExtension(file.FileName);
                         string filePath = destinationPath + uniqueShortFolderName + fileName + typeFile;
 
                         using var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
@@ -43,8 +43,9 @@ namespace WebStorage.Services
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                Console.WriteLine(ex.Message);
             }
+            return null;
         }
     }
 }
