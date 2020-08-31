@@ -7,7 +7,7 @@ namespace WebStorage.Services
     public class DeleteFilesService : IDeleteFilesService
     {
         private readonly IWebHostEnvironment _appEnvironment;
-
+        private const int expiresTime = -10;
         public DeleteFilesService(IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
@@ -20,12 +20,17 @@ namespace WebStorage.Services
 
             foreach (var folder in folders)
             {
-                FileInfo fi = new FileInfo(folder);
-                if (fi.CreationTime < DateTime.Now.AddMinutes(-5))
+                if (GetFolderCreationTime(folder) < DateTime.Now.AddDays(expiresTime))
                 {
                     Directory.Delete(folder, true);
                 }
             }
+        }
+        private DateTime GetFolderCreationTime(string path)
+        {
+            FileInfo fi = new FileInfo(path);
+
+            return fi.CreationTime;
         }
     }
 }

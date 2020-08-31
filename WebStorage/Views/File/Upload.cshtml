@@ -1,34 +1,44 @@
 ﻿
-
-    <div class="two-fileds">
-        <h2 class="m-md-3 font-weight-light text-uppercase text-center">Drop files</h2>
-        <div class="d-flex justify-content-center m-lg-3">
-            <div class="dash">
-                <form id="upload-form" class="form-upload" asp-controller="File" asp-action="Upload"
-                      enctype="multipart/form-data" method="post">
-                    <input id="file-selector" class="file-input" name="files" type="file" multiple />
-                    <div class="img-and-text">
-                        <img class="cloud-img" src="~/images/cloudLogo.png" alt="Alternate Text" />
-                        <p class="drag-text text-center mt-3">Drag your files here or click in this area.</p>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <h2 class="font-weight-light text-uppercase text-center">Uploaded files</h2>
-
-        <div class="d-flex justify-content-center m-lg-3">
-            <div class="dash">
-                <div class="file-drop-area">
-                    <p align="center" id="spanToHide" class="upload-message">Uploaded files here</p>
-                    <p id="totalSize"></p>
-                    <ul class="style-10" id="output"></ul>
+<div class="two-fileds">
+    <h2 class="m-md-3 font-weight-light text-uppercase text-center">Drop files</h2>
+    <div class="d-flex justify-content-center m-lg-3">
+        <div class="dash">
+            <form id="upload-form" class="form-upload" asp-controller="File" asp-action="Upload"
+                  enctype="multipart/form-data" method="post">
+                <div class="centered">
+                    <img class="cloud-img" src="~/images/cloudLogo.png" alt="Alternate Text" />
+                    <p class="drag-text text-center mt-3">Drag your files here or click in this area.</p>
                 </div>
-            </div>
-
-        </div>
-        <div class="d-flex justify-content-center">
-            <button type="submit" form="upload-form" 
-                    class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Upload</button>
+                <input id="file-selector" class="file-input" name="files" type="file" multiple />
+            </form>
         </div>
     </div>
+
+    <h2 class="font-weight-light text-uppercase text-center">Uploaded files</h2>
+
+    <div class="d-flex justify-content-center m-lg-3">
+        <div class="dash">
+            <div class="file-drop-area">
+                <p align="center" id="spanToHide" class="upload-message">Uploaded files here</p>
+                <p id="totalSize"></p>
+                <ul class="style-10" id="output"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 custom-control custom-switch d-flex justify-content-center">
+        <input type="checkbox" class="custom-control-input" id="customSwitches" form="upload-form" name="isAnonymous">
+        <label class="custom-control-label" for="customSwitches">If you wanna be anonymous, toggle this switch element</label>
+    </div>
+    <div class="center-block text-center mt-4">
+        <button class="btn rounded-pill btn-lg btn-custom text-uppercase" id="btn-main-page"
+                onclick="window.location='@Url.Action("Index", "Home")'">
+            Return to main page
+        </button>
+        <button type="submit" form="upload-form"
+                class="btn rounded-pill btn-lg btn-custom text-uppercase">
+            Upload
+        </button>
+    </div>
+</div>
+
+<script src="~/js/fileUpload.js"></script>

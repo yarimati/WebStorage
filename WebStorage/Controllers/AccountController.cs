@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using WebStorage.Models;
 using WebStorage.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace WebStorage.Controllers
 {
@@ -55,7 +56,7 @@ namespace WebStorage.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Upload", "File");
                 }
                 else
                 {
@@ -71,14 +72,12 @@ namespace WebStorage.Controllers
         /// <summary>
         /// Login view
         /// </summary>
-        /// <param name="returnUrl"></param>
         /// <returns></returns>
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -92,7 +91,7 @@ namespace WebStorage.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
@@ -100,14 +99,14 @@ namespace WebStorage.Controllers
                 if (user != null)
                 {
                     var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
-                    if (result.Succeeded)
-                    {
-                        return Redirect(returnUrl ?? "/");
-                    }
+
+                    if (result.Succeeded && Url.IsLocalUrl(returnUrl))
+                            return Redirect(returnUrl);
                 }
                 ModelState.AddModelError(nameof(LoginViewModel.UserName), "Invalid user or password");
             }
-            return View(model);
+
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>

@@ -16,11 +16,11 @@ body {
     height: 90vh;
     width: 100%;
 }
+
 .login-form {
     margin: auto;
     width: 370px;
     padding: 15px;
-    max-width: 100%;
 }
 
     .login-form .form-control {
@@ -29,14 +29,14 @@ body {
         font-weight: 500;
     }
 
-    .login-form a {
-        text-decoration: none;
-        color: #666;
-    }
+a:not(.list-a) {
+    text-decoration: none;
+    color: #666;
+}
 
-        .login-form a:hover {
-            color: #2b3034;
-        }
+a:hover:not(.list-a) {
+    color: #2b3034;
+}
 
 .forgot-link {
     font-size: 13px;
@@ -54,7 +54,8 @@ body {
     font-size: 15px;
     font-weight: 600;
     min-height: 48px;
-    max-width: 300px;
+    max-width: 350px;
+    min-width: 350px;
     border: 3px dashed #363f45;
 }
 
@@ -86,7 +87,9 @@ body {
     opacity: 0;
     z-index: 3;
 }
+
 .form-upload {
+    position: relative;
     height: 100%;
     width: 100%;
 }
@@ -96,8 +99,9 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 .img-and-text {
-    margin-top:-28%;
+    margin-top: -28%;
 }
 
 .file-drop-area ul {
@@ -109,19 +113,30 @@ body {
     max-height: 330px;
     overflow-y: auto;
 }
+
 .output-files {
     height: 400px;
 }
-.output-link{
-    max-width:60%;
+
+.output-link {
+    max-width: 60%;
 }
+
 .recovery-form {
     height: 93vh;
 }
 
+.cabinet-table img {
+    opacity: 0.5;
+    padding-top: 11px;
+}
 
-
-
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 .style-10::-webkit-scrollbar-track {
     background-color: #d3d6db;
@@ -138,21 +153,16 @@ body {
     background-image: -webkit-linear-gradient(90deg, rgba(0, 0, 0, .2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent)
 }
 
-
-
-
 @media (max-width: 600px) and (min-height: 600px) {
     .dash {
         display: block;
-        width: 90%;
+        width: 100%;
         height: 320px;
         padding: 5px;
         background-color: #c5c9cc;
         border: 3px dashed #363f45;
     }
-    .img-and-text {
-        margin-top: -78%;
-    }
+
     .output-files {
         display: block;
         width: 100%;
@@ -161,12 +171,13 @@ body {
         background-color: #c5c9cc;
         border: 3px dashed #363f45;
     }
+
         .output-files ul {
             max-height: 385px;
             overflow-y: auto;
         }
-        .output-link{
-            max-width:100%;
-        }
-}
 
+    .output-link {
+        max-width: 100%;
+    }
+}

@@ -17,7 +17,6 @@ namespace WebStorage.Controllers
     public class FileController : Controller
     {
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly IDeleteFilesService _deleteFiles;
         private readonly IUploadService _uploadService;
         private readonly UserManager<AppUser> _userManager;
         private readonly AppIdentityDbContext _context;
@@ -26,17 +25,13 @@ namespace WebStorage.Controllers
         /// Constructor
         /// </summary>
         /// <param name="appEnvironment"></param>
-        /// <param name="counterFiles"></param>
-        /// <param name="deleteFiles"></param>
         /// <param name="context"></param>
         /// <param name="userManager"></param>
         /// <param name="uploadService"></param>
-        public FileController(IWebHostEnvironment appEnvironment,
-                            IDeleteFilesService deleteFiles, AppIdentityDbContext context,
+        public FileController(IWebHostEnvironment appEnvironment, AppIdentityDbContext context,
                             UserManager<AppUser> userManager, IUploadService uploadService)
         {
             _appEnvironment = appEnvironment;
-            _deleteFiles = deleteFiles;
             _context = context;
             _userManager = userManager;
             _uploadService = uploadService;
@@ -64,21 +59,32 @@ namespace WebStorage.Controllers
         }
 
         /// <summary>
-        /// Upload files to the folder
+        /// Upload files method
         /// </summary>
         /// <param name="files"></param>
+        /// <param name="isAnonymous"></param>
         /// <returns></returns>
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Upload(IEnumerable<IFormFile> files)
+        [AllowAnonymous]
+        public async Task<IActionResult> Upload(IEnumerable<IFormFile> files, string isAnonymous)
         {
-            string download = await _uploadService.Upload(files);
+            var download = await _uploadService.Upload(files);
+            if (isAnonymous != "on")
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (user != null)
+                {
+                    await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download);
+                }
+                else
+                    return RedirectToAction("Login", "Account", new { returnUrl = Request.Path.Value }); //without returnUrl because its not [Authorize]
+            }
 
-            await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download.Split('/').Last()); //add links in db
 
             return RedirectToAction("GetFiles", new { downloadUrl = download });
         }
+
 
         /// <summary>
         /// Add links to each user in db
@@ -93,8 +99,9 @@ namespace WebStorage.Controllers
         {
             if (user != null && linkToDb != null)
             {
+                var folderPath = HttpContext.Request.Host + @"/File/GetFiles?downloadUrl=" + linkToDb;
                 var date = DateTime.Now;
-                await _context.Links.AddAsync(new UserLink() { Link = linkToDb, Date = date, AppUser = user });
+                await _context.Links.AddAsync(new UserLink() { Link = folderPath, Date = date, AppUser = user });
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -145,7 +152,7 @@ namespace WebStorage.Controllers
         [AllowAnonymous]
         public IActionResult Download(string fileName, string uniqueFolderName)
         {
-            if (fileName == null || uniqueFolderName==null)
+            if (fileName == null || uniqueFolderName == null)
                 return RedirectToAction("Upload");
 
             try

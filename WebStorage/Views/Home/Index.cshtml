@@ -3,21 +3,45 @@
 }
 
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-4">
+    <h1 class="mb-5 font-weight-light text-uppercase text-center">Welcome to WebStorage</h1>
 </div>
 
 @if (User.Identity.IsAuthenticated)
 {
-    <p>@User.Identity.Name</p>
+    <h3 class="text-center font-weight-light text-uppercase">@User.Identity.Name</h3>
 
     <form method="post" asp-controller="Account" asp-action="Logout">
-        <input type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase" value="Выход" />
+        <div class="d-flex justify-content-center mt-5">
+            <input type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase" value="Exit" />
+        </div>
     </form>
 }
 else
 {
-    <a asp-controller="Account" asp-action="Login">Вход</a>
-    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+                onclick="window.location='@Url.Action("Login", "Account")'">
+            Login
+        </button>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+                onclick="window.location='@Url.Action("Register", "Account")'">
+            Register
+        </button>
+    </div>
 }
+
+<div class="d-flex justify-content-center mt-5">
+    <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+            onclick="window.location='@Url.Action("Upload", "File")'">
+        Upload files
+    </button>
+</div>
+<div class="d-flex justify-content-center mt-5">
+    <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+            onclick="window.location='@Url.Action("Index", "Cabinet")'">
+        Cabinet
+    </button>
+</div>

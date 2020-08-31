@@ -1,23 +1,48 @@
 ﻿@model List<UsersEntryDTO>
+@using Microsoft.AspNetCore.Hosting
+@using System
+@inject IWebHostEnvironment HostingEnvironment
 
+
+<h1 class="mb-2 font-weight-light text-uppercase text-center">All your uploaded files</h1>
+<h3 class="mb-2 font-weight-light text-uppercase text-center">Click on link to copy!</h3>
 <div>
-    <table>
+    <table class="cabinet-table">
         <tr>
             <th>Id</th>
             <th>Links</th>
-            <th>Expires date</th>
+            <th>Expires date (in days)</th>
         </tr>
         @{ int i = 0;
+
             foreach (var item in Model)
             {
-
                 <tr>
                     <td>@i</td>
-                    <td>@item.Link</td>
-                    <td>@item.Date</td>
+                    <td>
+                        <div class="d-flex">
+                            <input id="output-input-@i" size="65" class="form-control rounded-pill form-control-lg output-link" onclick="copyLinkCabinet(this)" type="text" value="@item.Link" readonly>
+                            <img src="~/images/next.svg" alt="Click to open" height="35" width="35" onClick="call('output-input-@i')"/>
+                        </div>
+                    </td>
+                    @if (@DateTime.Now.AddDays(10).Subtract(item.Date).Days < 0)
+                    {
+                        <td>Files are deleted</td>
+                    }
+                    else
+                    {
+                        <td>@DateTime.Now.AddDays(10).Subtract(item.Date).Days d.</td>
+                    }
                 </tr>
                 i++;
             }
         }
     </table>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn rounded-pill btn-lg btn-custom btn-block text-uppercase" id="btn-main-page"
+                onclick="window.location='@Url.Action("Index", "Home")'">
+            Main page
+        </button>
+    </div>
 </div>
+<script src="~/js/cabinet.js"></script>
