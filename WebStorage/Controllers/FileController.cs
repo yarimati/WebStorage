@@ -6,10 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using WebStorage.Models;
-using WebStorage.Services;
+using WebStorage.Services.Interfaces;
 
 namespace WebStorage.Controllers
 {
@@ -41,10 +40,7 @@ namespace WebStorage.Controllers
         /// If user comes(~/File) will be redirect to upload action
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
-        {
-            return RedirectToAction("Upload");
-        }
+        public IActionResult Index() => RedirectToAction("Upload");
 
         /// <summary>
         /// Upload view
@@ -53,10 +49,7 @@ namespace WebStorage.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Upload()
-        {
-            return View();
-        }
+        public IActionResult Upload() => View();
 
         /// <summary>
         /// Upload files method
@@ -74,14 +67,10 @@ namespace WebStorage.Controllers
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
-                {
                     await AddLinks(await _userManager.GetUserAsync(HttpContext.User), download);
-                }
                 else
-                    return RedirectToAction("Login", "Account", new { returnUrl = Request.Path.Value }); //without returnUrl because its not [Authorize]
+                    return RedirectToAction("Login", "Account", new { returnUrl = Request.Path.Value });
             }
-
-
             return RedirectToAction("GetFiles", new { downloadUrl = download });
         }
 
@@ -103,6 +92,7 @@ namespace WebStorage.Controllers
                 var date = DateTime.Now;
                 await _context.Links.AddAsync(new UserLink() { Link = folderPath, Date = date, AppUser = user });
                 await _context.SaveChangesAsync();
+
                 return true;
             }
             return false;
@@ -119,9 +109,7 @@ namespace WebStorage.Controllers
         public IActionResult GetFiles(string downloadUrl)
         {
             if (downloadUrl == null)
-            {
                 return RedirectToAction("Upload");
-            }
 
             var folderPath = _appEnvironment.ContentRootPath + @"\Files\" + downloadUrl;
 
@@ -137,7 +125,6 @@ namespace WebStorage.Controllers
                 var fileName = Path.GetFileName(file);
                 fileNames.Add(fileName, downloadUrl);
             }
-
             return View(fileNames);
         }
 

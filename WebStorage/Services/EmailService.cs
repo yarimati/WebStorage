@@ -1,8 +1,8 @@
-﻿using MailKit.Net.Smtp;
+﻿using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using MimeKit;
-using System.Threading.Tasks;
 
-namespace WebStorage
+namespace WebStorage.Services
 {
     public class EmailService
     {

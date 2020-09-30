@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-namespace WebStorage.Services
+namespace WebStorage.Services.Interfaces
 {
     public interface IUploadService
     {

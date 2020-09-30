@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using WebStorage.Services.Interfaces;
 
 namespace WebStorage.Services
 {
@@ -35,7 +36,7 @@ namespace WebStorage.Services
                         var fileName = @"\" + Path.GetFileNameWithoutExtension(file.FileName);
                         string filePath = destinationPath + uniqueShortFolderName + fileName + typeFile;
 
-                        using var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
+                        await using var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
                         await file.CopyToAsync(stream);
                     }
                 }

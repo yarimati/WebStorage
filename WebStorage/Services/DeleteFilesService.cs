@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
+using WebStorage.Services.Interfaces;
 
 namespace WebStorage.Services
 {

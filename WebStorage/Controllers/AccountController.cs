@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using WebStorage.Models;
 using WebStorage.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using System;
+using WebStorage.Services;
 
 namespace WebStorage.Controllers
 {
@@ -33,13 +33,10 @@ namespace WebStorage.Controllers
         
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
 
         /// <summary>
-        /// Redister user
+        /// Register user
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -76,10 +73,7 @@ namespace WebStorage.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
 
         /// <summary>
         /// Login
@@ -128,10 +122,7 @@ namespace WebStorage.Controllers
         
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
+        public IActionResult ForgotPassword() => View();
 
         /// <summary>
         /// Send to email reset link 
@@ -176,7 +167,7 @@ namespace WebStorage.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
         {
-            return code == null ? View("Error") : View();
+            return code == null ? View("Error") : View(); // todo Error view
         }
 
         /// <summary>
@@ -191,19 +182,16 @@ namespace WebStorage.Controllers
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
+
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
-            {
                 return View("ResetPasswordConfirmation");
-            }
+
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
-            {
                 return View("ResetPasswordConfirmation");
-            }
+
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);

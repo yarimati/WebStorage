@@ -2,7 +2,7 @@
 
 namespace WebStorage.Models.DTOs
 {
-    public class UsersEntryDTO
+    public class UsersEntryDto
     {
         public string Link { get; set; }
         public DateTime Date { get; set; }

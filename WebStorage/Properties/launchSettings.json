@@ -1,11 +1,17 @@
-﻿{
+{
   "WebStorage": {
     "commandName": "Project",
-    "launchBrowser": true,
     "applicationUrl": "https://localhost:5003;http://localhost:5004",
+    "launchBrowser": true,
     "launchUrl": "File/Upload",
     "environmentVariables": {
       "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  },
+  "profiles": {
+    "WebStorage": {
+      "commandName": "Project",
+      "launchBrowser": true
     }
   }
 }

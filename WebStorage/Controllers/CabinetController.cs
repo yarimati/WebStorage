@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStorage.Models;
@@ -32,8 +31,8 @@ namespace WebStorage.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            List<UsersEntryDTO> listOfLinks = _context.Links.Where(x => x.AppUser.Id == user.Id)
-                                                .Select(x => new UsersEntryDTO {Date = x.Date, Link = x.Link}).ToList();
+            var listOfLinks = _context.Links.Where(x => x.AppUser.Id == user.Id)
+                                                .Select(x => new UsersEntryDto {Date = x.Date, Link = x.Link}).ToList();
             return View(listOfLinks);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace WebStorage.Services
+﻿namespace WebStorage.Services.Interfaces
 {
     public interface ICounterFilesService
     {
